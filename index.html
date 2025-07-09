@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA to Percentage Converter</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 2;
+            margin: 0;
+            padding: 0;
+            background-color: #469599;
+            color: #201b1b;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin:  4auto;
+            padding: 24px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #101b26;
+            margin-bottom: 30px;
+        }
+        
+        .converter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .converter-box {
+            flex: 1;
+            min-width: 300px;
+            background: rgb(240, 244, 245);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(113, 106, 106, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #12405f;
+            margin-top: 0;
+            border-bottom: 2px solid #6a5f5f;
+            padding-bottom: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 21px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #4f1414;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #637a88;
+            color: rgb(228, 225, 225);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #bfc4c7;
+            border-radius: 4px;
+            font-size: 18px;
+            display: none;
+        }
+        
+        .info {
+            background: rgb(241, 237, 237);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(132, 116, 116, 0.1);
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 600px) {
+            .converter-box {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SGPA  TO PECENTAGE CONVERTER</h1>
+        
+        <div class="converter-container">
+            <div class="converter-box">
+                <h2>SGPA  TO PERCENTAGE</h2>
+                <div class="input-group">
+                    <label for="sgpa">Enter SGPA (0-10):</label>
+                    <input type="number" id="sgpa" min="0" max="10" step="0.01" placeholder="e.g., 8.5">
+                </div>
+                <button onclick="convertSGPAtoPercentage()">Convert</button>
+                <div class="result" id="percentageResult"></div>
+            </div>
+            
+            <div class="converter-box">
+                <h2>PERCEBTAGE TO SGPA</h2>
+                <div class="input-group">
+                    <label for="percentage">Enter Percentage (0-100):</label>
+                    <input type="number" id="percentage" min="0" max="100" step="0.01" placeholder="e.g., 85.5">
+                </div>
+                <button onclick="convertPercentagetoSGPA()">Convert</button>
+                <div class="result" id="sgpaResult"></div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h2>About SGPA and Percentage</h2>
+            <p><strong>SGPA (Semester Grade Point Average)</strong> is a grading system used in many universities to measure a student's academic performance in a semester.</p>
+            <p>The most common formula to convert <strong>SGPA to Percentage</strong> is: <strong>Percentage = (SGPA × 10) - 7.5</strong></p>
+            <p>To convert <strong>Percentage to SGPA</strong>: <strong>SGPA = (Percentage + 7.5) / 10</strong></p>
+            <p><em>Note: Some universities may use different conversion formulas. Please check with your institution for the exact formula.</em></p>
+        </div>
+    </div>
+
+    <script>
+        function convertSGPAtoPercentage() {
+            const sgpaInput = document.getElementById('sgpa');
+            const resultDiv = document.getElementById('percentageResult');
+            
+            const sgpa = parseFloat(sgpaInput.value);
+            
+            if (isNaN(sgpa) || sgpa < 0 || sgpa > 10) {
+                alert('Please enter a valid SGPA between 0 and 10');
+                return;
+            }
+            
+            // Standard conversion formula: Percentage = (SGPA × 10) - 7.5
+            const percentage = (sgpa * 10) - 7.5;
+            
+            resultDiv.innerHTML = `<strong>Result:</strong> ${sgpa.toFixed(2)} SGPA = ${percentage.toFixed(2)}%;`
+            resultDiv.style.display = 'block';
+        }
+        
+        function convertPercentagetoSGPA() {
+            const percentageInput = document.getElementById('percentage');
+            const resultDiv = document.getElementById('sgpaResult');
+            
+            const percentage = parseFloat(percentageInput.value);
+            
+            if (isNaN(percentage) || percentage < 0 || percentage > 100) {
+                alert('Please enter a valid percentage between 0 and 100');
+                return;
+            }
+            
+            // Reverse of the above formula: SGPA = (Percentage + 7.5) / 10
+            const sgpa = (percentage + 7.5) / 10;
+            
+            resultDiv.innerHTML = `<strong>Result:</strong> ${percentage.toFixed(2)}% = ${sgpa.toFixed(2)} SGPA`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
